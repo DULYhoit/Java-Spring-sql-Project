@@ -1,0 +1,11 @@
+package ex12.control2.continue_break;
+
+import java.util.Scanner;
+
+public class Program {
+
+	public static void main(String[] args) {
+
+	}
+
+}
