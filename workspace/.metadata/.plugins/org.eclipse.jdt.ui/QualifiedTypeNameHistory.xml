@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="part3.ex4.UI코드분리하기.ExamConsole"/>
+    <fullyQualifiedTypeName name="part3.ex4.UI코드분리하기.Exam"/>
 </qualifiedTypeNameHistroy>

@@ -1,20 +1,23 @@
-package part3.ex2.메소드;
+package part3.ex4.UI코드분리하기;
 
 import java.util.Scanner;
 
-public class ExamList {
-	// Exam class의 성적정보를 참조하는 배열과 crrent를 묶음
-
-	public ExamList() {
-		
-		exams = new Exam[3];
-		current = 0;
-	}
-	private Exam[] exams;
-	private int current;
-
+public class ExamConsole {
+	/*
+	 * composition has A 관계는 강한 결속 , aggregation has a 는 약한 결속,
+	 *  composition has a는
+	 * 생성될 때 생성자로서 바로 생성, aggregation has a 는 참조 
+	 * 변수만 만들어 놓고나중에 투입되므로 생성시기가 다를 수 있음.
+	 */
+	//Composition Has A 일체형
+	private ExamList list = new ExamList();
+	//전역필드에 연산자를 못썼음 원래방법은 아래
+//	private ExamList list
+//	public ExamConsole() {
+//		list = new ExamList();
+//	}
 	void printList() {
-		this.printList(this.current);
+		this.printList(list.size());
 
 	}
 	
@@ -26,14 +29,14 @@ public class ExamList {
 		System.out.println();
 
 //				int size = list.current;
-		Exam[] exams = this.exams;
+//		Exam[] exams = this.exams;
 		for (int i = 0; i < size; i++) {
-			Exam exam = exams[i];
-			int total = exam.kor + exam.eng + exam.math;
-			float avg = total / 3.0f;
-			int kor = exam.kor;
-			int eng = exam.eng;
-			int math = exam.math;
+			Exam exam = list.get(i);
+			int kor = exam.getKor();
+			int eng = exam.getEng();
+			int math = exam.getMath();
+			int total = exam.total();
+			float avg = exam.avg();
 
 			System.out.printf("국어 : %3d\n", kor);
 			System.out.printf("영어 : %3d\n", eng);
@@ -46,6 +49,7 @@ public class ExamList {
 
 	}
 
+	
 	void inputList() {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("┌──────────────────┐");
@@ -79,36 +83,18 @@ public class ExamList {
 				System.out.println("국어성적은 0~100까지의 범위만 입력이 가능합니다.");
 			}
 		} while (math < 0 || 100 < math);
-		Exam exam = new Exam();
-		exam.kor = kor;
-		exam.eng = eng;
-		exam.math = math;
-
-		Exam[] exams = this.exams;
-		int size = current;
-
-		if (exams.length == size) {
-			// 가변배열 만들기
-			// 1.새로운 배열을 생성
-			Exam[] temp = new Exam[size + 5];
-			// 2.exams[0 ,1 ,2].변수 값들을 temp에 이주시키기
-			for (int i = 0; i < size; i++) {
-				temp[i] = exams[i];
-			}
-			// 3.list.exams가 새로만든 temp 배열을 참조 할수있도록 한다.
-			exams = temp;
-
-		}
-		exams[current] = exam;
-
-		System.out.println("────────────────────────");
-		current++;
-
-	}
-
+//		Exam exam = new Exam();
+//		exam.setKor(kor);
+//		exam.setEng(eng);
+//		exam.setMath(math);
+		Exam exam = new Exam(kor,eng,math);
+		
+		/*--add-------------------------------------*/
+		
+		list.add(exam);
+		
 	
+		
 
-
-	
-
+	}	
 }

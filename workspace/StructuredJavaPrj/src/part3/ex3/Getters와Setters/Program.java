@@ -1,4 +1,4 @@
-package part3.ex2.메소드;
+package part3.ex3.Getters와Setters;
 
 import java.util.Iterator;
 import java.util.Scanner;
