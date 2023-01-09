@@ -8,11 +8,8 @@ public class Program {
 	//3.jar -> Exam.jar
 
 	public static void main(String[] args) {
-		NewlecExam exam = new NewlecExam();
-		exam.setKor(10);
-		exam.setEng(20);
-		exam.setMath(30);
-		exam.setCom(50);
+		NewlecExam exam = new NewlecExam(10,20,30,40);
+		
 		System.out.println(exam.total());
 		System.out.println(exam.avg());
 	}
