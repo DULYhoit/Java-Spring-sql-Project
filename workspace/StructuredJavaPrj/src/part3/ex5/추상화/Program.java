@@ -5,8 +5,9 @@ import java.util.Scanner;
 
 public class Program {
 
-	public static void main(String[] args) {
-		ExamConsole list = new ExamConsole();
+	public static void main(String[] args){
+		//현재 ExamConsole과 Exam클래스는 abstract 추상클래스라서 상속받아서 써야함
+		Console list = new Console();
 
 		int menu;
 
@@ -19,11 +20,11 @@ public class Program {
 			case 1:
 
 				// ExamList.inputList(list);
-				list.inputList();
+				list.onInput(null);
 				break;
 			case 2:
 				// ExamList.printList(list);
-				list.printList();
+				list.onPrint(null);
 				break;
 			case 3:
 				System.out.println("Bye~~");

@@ -13,8 +13,7 @@ public class GameWindowListener implements WindowListener{
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		JOptionPane.showMessageDialog(null, "Good bye~");
-		System.exit(0);
+		
 	}
 
 	@Override

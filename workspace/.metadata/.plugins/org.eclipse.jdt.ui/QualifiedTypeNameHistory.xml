@@ -3,12 +3,18 @@
     <fullyQualifiedTypeName name="part3.ex4.UI코드분리하기.ExamConsole"/>
     <fullyQualifiedTypeName name="part3.ex4.UI코드분리하기.Exam"/>
     <fullyQualifiedTypeName name="java.awt.Frame"/>
-    <fullyQualifiedTypeName name="part3.ex5.추상화.ExamConsole"/>
     <fullyQualifiedTypeName name="part3.ex5.추상화.NewlecExamConsole"/>
     <fullyQualifiedTypeName name="java.io.FileInputStream"/>
     <fullyQualifiedTypeName name="java.util.Scanner"/>
-    <fullyQualifiedTypeName name="java.awt.event.WindowListener"/>
     <fullyQualifiedTypeName name="GameWindowListener"/>
     <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="java.awt.event.WindowListener"/>
+    <fullyQualifiedTypeName name="Calculator"/>
+    <fullyQualifiedTypeName name="java.lang.Exception"/>
+    <fullyQualifiedTypeName name="part3.ex5.추상화.ExamConsole"/>
+    <fullyQualifiedTypeName name="com.newlecture.app.util.IntList"/>
+    <fullyQualifiedTypeName name="java.lang.IndexOutOfBoundsException"/>
+    <fullyQualifiedTypeName name="java.lang.Object"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
 </qualifiedTypeNameHistroy>
