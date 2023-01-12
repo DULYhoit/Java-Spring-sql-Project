@@ -1,0 +1,2 @@
+DATA_FILE1 filter=lfs diff=lfs merge=lfs -text
+LOG_FILE1 filter=lfs diff=lfs merge=lfs -text

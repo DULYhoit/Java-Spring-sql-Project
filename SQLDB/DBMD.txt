@@ -1,0 +1,98 @@
+[1]SQL PDB 설정
+첫번째 Seed PDB를 이용한 Pluggable 데이터베이스 생성
+1.CDB =일종의 컨테이너 DB
+2.Plugable 데이터베이스 = SQLDB 버전이 올라가면서 가상화된 DB가 등장함
+
+과거의 배운 sql은 CDB에 접속해서 연습함
+
+따라서 이번에 배울내용은 Plugble DB를 만들고 가상DB에 접속하는것을 배울것
+
+PDB가 있는지확인
+1.CMD -> sqlplus sys as sysdba 입력 -> 비밀번호 입력
+2.select name from v$pdbs;
+3.처음실행하면 NAME
+	       -------------------
+	       PDB$SEED ->앞으로만들어질 원본
+                   XEPDB1 ->가상DB
+
+*Plugable 데이터베이스를 만드는 구문*
+CREATE
+  PLUGABLE DATABASE hrpdb
+  ADMIN USER DBA1
+  IDENTIFIED BY password
+
+*원격 접속을 위한 설정 변경*
+저장프로시져 리스너설정이 본래 로컬만 가능하게 설정됨 따라서 그설정을 FALSE 해주는것
+EXEC DBMS_XDB.SETLISTENERLOCALACCESS(FALSE);
+
+단 HOST 컴퓨터에 방화벽 설정이 되있으면 포트포워딩을 통한 포트를 개방해야함
+
+[2]SYS계정과 SYSTEM계정
+1.SYS- SUPER 계정으로써 데이터베이스의 전체를 관리할수있음
+2.SYSTEM -일반적인 방식인 데이터베이스를 관리하는계정 (관리하는데 제한사항있음)
+
+[3]SCHEMA -스키마
+1.여러가지 테이블과 인덱스 기타등등의 오브젝트 로 이루어져있는데 이를 (SCHEMA)스키마 라고 부른다.
+
+[4]DDL,DML,DCL,TCL
+1.데이터 명령어
+DDL(DIFINITION)데이터 정의어
+-(CREATE / ALTER / DROP)
+DML(MANIFULATION) 데이터 조작어
+-(INSERT / SELECT / UPDATE / DELETE) - CRUD
+DCL(CONTROL) 데이터 제어어
+-(GRANT / REVOKE)
+
+2.VALUE TYPE 데이터형식
+
+(1)Character형식
+1.CHAR[(size [BYTE| CHAR])] ->CHAR(50) 이라면 들어간 데이터가 1BYTE여도 50공간만큼 만듬 비효율적일수 있게됨
+2.VARCHAR2(size [BYTE | CHAR]) ->가변크기
+3.NCHAR[(size)] 
+4.NVARCHAR2(size)
+--CHAR(3), VARCHAR2(3), NCHAR(3), NVARCHAR(3)
+5.LONG -CLOB 등장으로 잘쓰이지않음
+6.CLOB -대용량 텍스트 데이터타입(4Gbyte)
+7.NCLOB -대용량 텍스트 유니코드 데이터타입(4Gbyte)
+
+(2)Numeric 형식
+1.NUMBER[(p [,s])]
+NUMBER(4) -최대4자로 이루어진 숫자
+NUMBER(6,2) -소수점 2자리를 포함하는 최대6자리 (소수점 둘째 자리에서 반올림)
+NUMBER(6,-2) -소수점 -2자리에서 반올림하는 최대6자리
+NUMBER -NUMBER(38,*)
+NUMBER(*,5) -NUMBER(38,5)
+
+(3)Date 형식
+1.DATE - (EX:01-JAN-99)
+2.TIMESTAMP -(NLS_TIMESTAMP_FORMAT) 파라미터에 명시된 값을 따름.
+3.TIMESTAMP WITH TIME ZONE -(NLS_TIMESTAMP_TZ_FORMAT) 파라미터에 명시된 값을 따름.
+4.TIMESTAMP WITH LOCAL TIME ZONE -(NLS_TIMESTAMP_FORMAT) 파라미터에 명시된 값을 따름.
+//SELECT * FROM NLS_DATABASE_PARAMETERS 
+
+3.데이터명령어 구문옵션
+(1)DDL
+-CREATE TABLE 테이블이름
+- ALTER TABLE 테이블이름 (MODIFY,DROP,ADD) 컬럼
+-DROP TABLE 테이블이름
+
+(2)DML
+-SELECT *(검색하고싶은 컬럼) [별칭] FROM 테이블이름
+-INSERT INTO 테이블이름 VALUES(값1,값2) | INSERT INTO 테이블이름(컬럼1,컬럼2) VALUES(값1,값2)
+-UPDATE 테이블이름 SET 컬럼=값 WHERE 컬럼=값; -> WHERE은 조건절 ,(SET 컬럼=값 , 컬럼=값) 다수컬럼 변경가능
+-DELETE 테이블이름 컬럼=값;
+
+[5]트랜잭션
+(1)특징
+1.원자성 (Atomicity) -트랜잭션이 데이터베이스에 모두 반영되던가, 아니면 전혀 반영되지 않아야 한다는 것
+2.일관성 (Consistency) -트랜잭션의 작업 처리 결과가 항상 일관성이 있어야 한다는 것
+3.독립성 (Isolation) -어떤 하나의 트랜잭션이라도, 다른 트랜잭션의 연산에 끼어들 수 없다는 점을 가리킨다.
+4.지속성 (Durability) -트랜잭션이 성공적으로 완료됬을 경우, 결과는 영구적으로 반영되어야 한다는 점
+
+[6]연산자
+1.(산수) +,-,*,/
+2.(비교) =,(!=,^=,<>),>,<,>=,<=,IS NULL, IS NOT NULL
+3.(관계) NOT, AND, OR, BETWEEN, IN
+
+
+
