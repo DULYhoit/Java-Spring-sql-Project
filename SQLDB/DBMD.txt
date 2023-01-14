@@ -93,6 +93,93 @@ NUMBER(*,5) -NUMBER(38,5)
 1.(산수) +,-,*,/
 2.(비교) =,(!=,^=,<>),>,<,>=,<=,IS NULL, IS NOT NULL
 3.(관계) NOT, AND, OR, BETWEEN, IN
+4.(패턴) LIKE, %, _
+5.(정규식) REGEXP_LIKE(컬럼,'정규식');
+-전화번호 정규식 01[016-9]-\d{3,4}-\d{4}
+- 이메일 정규식 \D\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}
+-정규식 홈페이지 : https://regexlib.com/CheatSheet.aspx
+
+[7]행 제한하기 -페이징
+1.ROWNUM -SELECT 함과 동시에 ROWNUM이라는 컬럼 행이 생성됨
+2. SELECT * FROM MEMBER WHERE ROWNUM BETWEEN 1 AND 5;\
+3.sql실행순서 :  FROM - WHERE GROUP BY - HAVING - SELECT - ORDER BY
+4. *중요* ROWNUM은 결과집합을 만들때 생성됨 (WHERE 절이 실행될때) 비교연산시 ROWNUM 컬럼을 비교하는게아니라 값만두고 비교함
+따라서 ROWNUM을 두번만들어야함
+5.SELECT * FROM (SELECT ROWNUM NUM, MEMBER.* FROM MEMBER) WHERE NUM BETWEEN 1 AND 5;
+
+[8]함수
+*DISTINCT 중복제거 SELECT절에 사용*
+*WHERE 절에 함수를 쓸수는있지만 레코드수가 많으면 그만큼 실행되서 부담됨*
+
+(1).문자열함수
+1.SUBSTR('HELLO',1,3) -매개변수에 따라 어디서 자를건지 ,SUBSTRB('HELLO',1,3)-BYTE로 자름
+2.CONCAT('홍','길동') - 두개의 문자를 합침 || <- 성능면에선 이기호가 많이쓰임
+3.(L,R)TRIM('    HELLO      ') - 빈공백을 없애줌
+4.LOWER('NeWLEC') - 전부 소문자로바꿈, UPPER('NeWLEC') - 전부 대문자로 바꿈
+5.REPLACE('WHERE WE ARE', 'WE', 'YOU') - WE 라는 문자를 YOU로 바꿈
+6.TRANSLATE('WHERE WE ARE', 'WE', 'YOU') - 두번째 인자에 해당되는 문자하나씩 3번째 인자로 바꿔줌 EX)W -> Y , E -> O
+7.(L,R)PAD('HELLO',10,'0') -2번째인자의 크기만큼 값을 채울수있음
+8.INITCAP('the .....') - 문장 공백 다음 첫번째 단어를 대문자로
+9.INSTR('ALL WE NEED TO IS JUST TO...','TO',1,2) - TO라는 문자가 첫번째 인자값에 있는지 3번째 인자의 위치부터 찾아라 4번째인자는 몇번째있는걸 찾을건가
+10.LENGTH('WHERE WE ARE') - 인자값의 길이
+
+(2).숫자함수함수
+1.ABS(35),ABS(-35) - 절대값
+2.SIGN(35),SIGN(-35) - 음수양수또는0인지
+3.ROUND(34.44121,2),ROUND(34.54534,2) - 반올림 2번째인자는 소숫점위치
+4.TRUNC(17/5) - 몫, MOD(17,5) - 나머지
+5.POWER(5,2) - 제곱, SQRT(25) - 25의 제곱근
+
+(3).날짜함수
+1.SYSDATE -오라클 DBMS위치하는 시간기준
+2.CURRENT_DATE - 사용자 세션기준
+3.SYSTIMESTAMP - SYSDATE 보다 세부적인
+4.CURRENT_TIMESTAMP -사용자기준 세부적인날짜
+-ALTER SESSION SET TIME_ZONE = '-1:0' -세션시간을 바꿀수있음
+-ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'; 글로벌날짜 포멧 변경
+5.EXTRACT(YEAR FROM SYSDATE) - 날짜 추출함수 YEAR,MONTH,DAY,MINUTE,SECOND 입력가능
+6.ADD_MONTHS(SYSDATE,1),ADD_MONTHS(SYSDATE,-1) - 날짜를 누적하거나 빼는함수
+7.MONTHS_BETWEEN(날짜,날짜) - 날짜의 차이를 알아내는함수
+8.NEXT_DAY(SYSDATE,'토요일') - 2번째 인자가 몇일인지 
+9.LAST_DAY(SYSDATE) - 이번달 마지막일
+
+(4).변환함수
+1.TO_CHAR(1234567,'$99,999,999,999,99') - 숫자를 문자로
+- 포맷문자 정리 : https://gent.tistory.com/331
+2.TO_DATE(SYSDATE,'YYYY-MM_DD HH24:MI:SS') - 문자를 날짜로
+- 포맷문자 정리 : https://gent.tistory.com/448
+3.TO_NUMBER('1994') - 문자를 숫자로
+
+(5).NULL관련함수
+1.NVL(AGE, 0) - 값이 NULL일경우 2번째인자로 대채한다
+2.NVL2(AGE,1,0) - AGE가 NULL이 아니면 1 , NULL이면 0
+3.NULLIF(AGE,19) - AGE컬럼값이 19면 NULL로 만든다
+4.DECODE(GENDER,'남성',1,'여성',2,'기타') - GENDER컬럼의 값이 '남성' 이면 1 아니면 2 둘다 해당없으면 기타
+
+(6).집계함수함수 -*중요*
+*SELECT문의 구절*
+(1).SELECT - FROM - WHERE - GROUP BY - HAVING - ORDER BY
+1.FROM - 격자형 데이터를 준비함
+2.WHERE - 조건절 필터링 기능
+3.GROUP BY - 집계로써 컬럼값을 하나로 묶는작업
+-집계 함수 : SUM, MIN, MAX, COUNT, AVG
+4.HAVING - 집계에 조건을 부여함, 집계에 조건을 부여하고싶으면 WHERE 절엔 조건을 못검
+5.ORDER BY ASC(기본값),DESC(내림차순)- 집계된 이후에 정렬하고싶은게 있을때 사용
+-순위 함수:ROW_NUM(),RANK(),DENSE_RANK() - EX SELECT ROW_NUM() OVER (PARTITION BY 그룹화할 컬럼 ORDER BY 정렬할컬럼)
+
+(7).서브쿼리
+*구절의 순서를 바꿔야 하는경우*
+1.SELECT * FROM MEMBER WHERE ROWNUM BETWEEN 1 AND 5; - 최신 등록순으로 정렬한 결과에서 상위 열명을 원한다면?
+2.SELECT * FROM(SELECT * FROM MEMBER ORDER BY REGDATE DESC)
+WHERE ROWNUM BETWEEN 1 AND 5;
+
+[9]JOIN
+1.INNER JOIN
+2.OUTER JOIN
+3.SELF JOIN
+4.CROSS JOIN(Cartesian Product)
+
+
 
 
 
