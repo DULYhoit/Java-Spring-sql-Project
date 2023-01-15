@@ -174,10 +174,37 @@ NUMBER(*,5) -NUMBER(38,5)
 WHERE ROWNUM BETWEEN 1 AND 5;
 
 [9]JOIN
-1.INNER JOIN
-2.OUTER JOIN
-3.SELF JOIN
-4.CROSS JOIN(Cartesian Product)
+1.INNER JOIN - 두테이블간에 같은 값이 있는것들을 조회한다
+2.OUTER JOIN -  INNER JOIN을 하되 조건에따라서 같은 값이 없는 컬럼까지 조회한다 ex)LEFT , RIGHT ,FULL OUTER JOIN
+3.SELF JOIN - 데이터가 서로 포함 관계를 가지는경우 
+4.CROSS JOIN(Cartesian Product) - 중복값을 포함한 모든 데이터를 조회함
+*ANSI INNER JOIN - SELECT N.*, M.NAME WRITER_NAME FROM NOTICE N JOIN MEMBER M ON M.ID = N.WRITER_ID; 
+*Oracle INNER JOIN - SELECT N.*, M.NAME WRITER_NAME FROM NOTICE N , MEMBER M WHERE M.ID = N.WRITER_ID; 
+
+[10]UNION 유니온
+*레코드만 합칠때 유니온을 사용*
+1.UNION - 같은 레코드가 있을시 중복 제거하고 합침
+2.MINUS - 첫번째 테이블레코드를 기준으로 중복되는 레코드를 빼고 합침
+3.INTERSECT - 공통분모만 남기고 합침 MINUS 와 반대
+4.UNION ALL - 공통과 상관없이 전체를 합침
+
+[11]View 뷰
+*복잡한 쿼리를 View를 통해 쉽게 볼수있게 만들어준다*
+1.CREATEW VIEW 뷰이름 AS Sql문장
+
+[12]제약조건
+(1)도메인 제약조건
+1.NOT NULL - 컬럼값에 NULL을 허용안함
+2.DEFAULT - 값이 안들어갈때 설정할 기본값
+3.CHECK - 컬럼값에 조건을 넣는 제약조건 ex)PHONE 컬럼에 '010-%-____' ,또는 정규식을 삽입할수있음
+
+(2)엔티티 제약조건
+1.PRIMARY KEY - NOT NULL 제약조건과 , 중복허용안함 을 포함한 PK 제약조건 (기본키)
+2.UNIQUE - 중복허용안함 만있는 제약조건
+
+[13]Sequence 시퀀스
+*레코드가 삽입될때마다 증가되는 수를 지정한다 ex)제품번호,ID 번호 등등* 
+1.CREATE SEQUENCE 시퀀스이름 START WITH 1; 
 
 
 
