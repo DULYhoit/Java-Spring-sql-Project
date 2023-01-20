@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author dmsrb
- *
- */
-module JDBCPrj {
-}
