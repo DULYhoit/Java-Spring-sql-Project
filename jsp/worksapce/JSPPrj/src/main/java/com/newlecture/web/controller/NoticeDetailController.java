@@ -51,7 +51,7 @@ public class NoticeDetailController extends HttpServlet {
 			int hit = rs.getInt("HIT");
 			String files = rs.getString("FILES");
 			String content = rs.getString("CONTENT");
-			Notice notice = new Notice(title, writer_id, regdate, hit, files, content);
+			Notice notice = new Notice(title, writer_id, regdate, hit, files, content,0);
 
 			request.setAttribute("n", notice);
 			rs.close();
@@ -62,7 +62,7 @@ public class NoticeDetailController extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		request.getRequestDispatcher("/notice/detail.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/notice/detail.jsp").forward(request, response);
 		
 	}
 

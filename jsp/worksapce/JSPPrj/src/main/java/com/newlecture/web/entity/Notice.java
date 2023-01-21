@@ -9,17 +9,28 @@ public class Notice {
 	private int hit;
 	private String files;
 	private String content;
-	
+	private int id;
 	public Notice() {
 	}
 	
-	public Notice(String title, String writer_id, Date regdate, int hit, String files, String content) {
+	public Notice(String title, String writer_id, Date regdate, int hit, String files, String content , int id) {
 		this.title = title;
 		this.writer_id = writer_id;
 		this.regdate = regdate;
 		this.hit = hit;
 		this.files = files;
 		this.content = content;
+		this.id= id;
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
