@@ -10,22 +10,49 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.newlecture.web.entity.Notice;
+import com.newlecture.web.entity.NoticeView;
 
 public class NoticeService {
-	public List<Notice> getNoticeList() {
+	public int removeNoticeAll(int[] ids){
+		
+		return 0;
+	}
+	public int pubNoticeAll(int[] ids){
+		
+		return 0;
+	}
+	public int insertNotice(Notice notice){
+		
+		return 0;
+	}
+
+	public int deleteNotice(int id){
+		
+		return 0;
+	}
+	public int updateNotice(Notice notice){
+		
+		return 0;
+	}
+	public List<Notice> getNoticeNewestList(){
+		
+		return null;
+	}
+	
+	public List<NoticeView> getNoticeList() {
 
 		return getNoticeList("title", "", 1);
 	}
 
-	public List<Notice> getNoticeList(int page) {
+	public List<NoticeView> getNoticeList(int page) {
 
 		return getNoticeList("title", "", page);
 	}
 
-	public List<Notice> getNoticeList(String field, String query, int page) {
-		List<Notice> list = new ArrayList<Notice>();
-		String sql = "SELECT * FROM " + "(SELECT ROWNUM NUM, n.* FROM (SELECT NOTICE.* FROM NOTICE WHERE " + field
-				+ " LIKE ? ORDER BY REGDATE DESC)n) " + "WHERE NUM BETWEEN ? AND ?";
+	public List<NoticeView> getNoticeList(String field, String query, int page) {
+		List<NoticeView> list = new ArrayList<NoticeView>();
+		String sql = "SELECT * FROM " + "(SELECT ROWNUM NUM, n.* FROM (SELECT * FROM NOTICE_VIEW WHERE "+field
+				+ " LIKE ? ORDER BY REGDATE DESC)n) WHERE NUM BETWEEN ? AND ?";
 		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
 
 		try {
@@ -37,14 +64,14 @@ public class NoticeService {
 			st.setInt(3, page * 5);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				Notice notice = new Notice();
+				NoticeView notice = new NoticeView();
 				notice.setWriter_id(rs.getString("WRITER_ID"));
-				notice.setContent(rs.getString("CONTENT"));
 				notice.setFiles(rs.getString("FILES"));
 				notice.setHit(rs.getInt("HIT"));
 				notice.setRegdate(rs.getDate("REGDATE"));
 				notice.setTitle(rs.getString("TITLE"));
 				notice.setId(rs.getInt("ID"));
+				notice.setCmtCount(rs.getInt("CMT_COUNT"));
 				list.add(notice);
 
 			}
@@ -81,8 +108,9 @@ public class NoticeService {
 			st.setString(1, "%" + query + "%");
 
 			ResultSet rs = st.executeQuery();
-
+			if(rs.next())
 			count = rs.getInt("COUNT");
+			
 			rs.close();
 			st.close();
 			con.close();
@@ -99,7 +127,7 @@ public class NoticeService {
 
 	public Notice getNotice(int id) {
 
-		Notice notice = null;
+		Notice notice = new Notice();
 		String sql = "SELECT * FROM NOTICE WHERE ID=?";
 		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
 
