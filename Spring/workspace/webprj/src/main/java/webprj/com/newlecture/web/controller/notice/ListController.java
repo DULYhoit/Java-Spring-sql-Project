@@ -1,4 +1,4 @@
-package webprj.com.newlecture.web.controller;
+package webprj.com.newlecture.web.controller.notice;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,16 +7,17 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 
-public class IndexController implements Controller{
+public class ListController implements Controller{
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mv = new ModelAndView("index");
-		mv.addObject("data", "Hello Spring MVC~");
+		ModelAndView mv = new ModelAndView("notice.list");
+//		mv.addObject("data", "Hello Spring MVC~");
 //		mv.setViewName("/WEB-INF/view/index.jsp");
+		
 		return mv;
 	}
 
-
+	
 
 }
