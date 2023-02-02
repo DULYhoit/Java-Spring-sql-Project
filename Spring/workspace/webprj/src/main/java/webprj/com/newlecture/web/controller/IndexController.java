@@ -1,5 +1,6 @@
 package webprj.com.newlecture.web.controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,9 +12,8 @@ public class IndexController implements Controller{
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mv = new ModelAndView("index");
-		mv.addObject("data", "Hello Spring MVC~");
-//		mv.setViewName("/WEB-INF/view/index.jsp");
+		ModelAndView mv = new ModelAndView("root.index");
+
 		return mv;
 	}
 
