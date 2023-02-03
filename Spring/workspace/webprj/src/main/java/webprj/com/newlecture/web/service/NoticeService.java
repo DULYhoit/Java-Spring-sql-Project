@@ -3,8 +3,10 @@ package webprj.com.newlecture.web.service;
 import java.sql.SQLException;
 import java.util.List;
 
-import webprj.com.newlecture.web.entity.Notice;
+import org.springframework.stereotype.Service;
 
+import webprj.com.newlecture.web.entity.Notice;
+@Service
 public interface NoticeService {
 
 	public List<Notice> getList() throws ClassNotFoundException, SQLException;

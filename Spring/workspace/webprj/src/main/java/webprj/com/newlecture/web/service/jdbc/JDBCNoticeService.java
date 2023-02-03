@@ -12,6 +12,10 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import webprj.com.newlecture.web.entity.Notice;
 import webprj.com.newlecture.web.entity.Pagedata;
 import webprj.com.newlecture.web.service.NoticeService;
@@ -25,13 +29,8 @@ public class JDBCNoticeService implements NoticeService{
 //	String pwd = "oracle";
 //	String driver = "oracle.jdbc.driver.OracleDriver";
 	
+	@Autowired
 	private DataSource dataSource;
-	
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
-	
-	
 
 	public List<Notice> getList() throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM NOTICE";
