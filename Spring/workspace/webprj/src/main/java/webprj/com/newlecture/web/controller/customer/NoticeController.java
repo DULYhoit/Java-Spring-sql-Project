@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
@@ -23,8 +24,9 @@ public class NoticeController{
 	private NoticeService noticeService;
 	
 	@RequestMapping("list")
-	public String list() throws ClassNotFoundException, SQLException {
+	public String list(@RequestParam(name = "p",defaultValue = "1") int page) throws ClassNotFoundException, SQLException {
 		List<Notice> list = noticeService.getList();
+		System.out.println(page);
 		return "notice.list";
 	}
 	@RequestMapping("detail")
