@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newlecture.web.dao.NoticeDao">
+<!--id는 함수이름 resultType은 결과집합을 담을곳  -->
+  <select id="getList" resultType="com.newlecture.web.entity.Notice">
+    select * from Blog where id = #{id}
+  </select>
+  <!--결과집합을 담을 객체가 인자로 들어올경우 parameterType  -->
+  <!-- <insert id="insert" parameterType="com.newlecture.web.dao.Notice"></insert> -->
+  <!--item은 변수 collection은 인자로들어오는 배열객체 open,separator,close는 반복마다 삽입되는 글자들  -->
+  <!-- <delete id="deleteAll">
+  	delete from Notice
+  	Where id in
+  	<foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+  		#{id}
+  	</foreach>
+  		
+  </delete> -->
+  <select id="">
+  	<if test=""></if>
+  </select>
+</mapper>
